@@ -11,6 +11,12 @@
 #include "paging/Paging.h"
 #include "paging/PageTableManager.h"
 
+// Kernel information strings. Change as necessary for your system.
+#define VERSION "YAFIX Kernel Release 0.0.1a Version Generic_05182021-01_i386_amd64 (64-bit)"
+#define COPYRIGHT_STRING "Copyright 2020 - 2021 *NIX Foundation, Inc. All rights reserved."
+#define DEVELOPER_INFO "Developed by Wayne Michael Thornton (WMT)."
+#define LICENSE_INFO "Use is subject to Unlicense terms."
+
 // Memory management typedef
 struct BootInfo {
 	Framebuffer* framebuffer;

@@ -1,7 +1,14 @@
 #include "Kernel_Util.h"
+#include "gdt/GDT.h"
+#include "interrupts/IDT.h"
+#include "interrupts/Interrupts.h"
 
 KernelInfo kernelInfo;
 PageTableManager pageTableManager = NULL; 
+
+// We are declaring a basic renderer for all kernel output.
+Basic_Renderer r = Basic_Renderer(NULL, NULL);
+
 void PrepareMemory(BootInfo* bootInfo)
 {
 	// Determine memory map information
@@ -44,58 +51,85 @@ void PrepareMemory(BootInfo* bootInfo)
 void KernelLogo(BootInfo* bootInfo)
 {
 
-	// We are using kernelOutput to distinguish text generated inside of kernel initialization
-	// routines. Non-kernel initialization routines use consolePrint.
-    Basic_Renderer kernelPrint = Basic_Renderer(bootInfo->framebuffer, bootInfo->psf1_Font);
+	// We are using GlobalRenderer to output from the kernel.
 
 	// Kernel logo information can be changed to reflect updated version information.
+	// Change these definitions in Kernel_Util.h header file.
 	// In future, these should be stored as variables passed to the compiler and auto-populated
 	// but for now, this works.
-	kernelPrint.Print("YAFIX Kernel Release 0.0.1a Version Generic_05182021-01_i386_amd64");
-	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
-	kernelPrint.Print("Copyright 2020 - 2021 Dexter's Laboratory. All rights reserved.");
-	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
-	kernelPrint.Print("Developed by Wayne Michael Thornton (WMT).");
-	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
-	kernelPrint.Print("Use is subject to Unlicense terms.");
-	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 32};
+	GlobalRenderer->Print(VERSION);
+	CURSOR_SINGLE;
+	GlobalRenderer->Print(COPYRIGHT_STRING);
+	CURSOR_SINGLE;
+	GlobalRenderer->Print(DEVELOPER_INFO);
+	CURSOR_SINGLE;
+	GlobalRenderer->Print(LICENSE_INFO);
+	CURSOR_DOUBLE;
 
 	// Display system memory information. Very DOS-like but I think it looks cool. Does not
 	// include virtual memory information.
-	kernelPrint.Print("Free Physical RAM: ");
-	kernelPrint.Print(to_string(GlobalAllocator.GetFreeRAM() / 1024));
-	kernelPrint.Print(" KB");
+	GlobalRenderer->Print("Free Physical RAM: ");
+	GlobalRenderer->Print(to_string(GlobalAllocator.GetFreeRAM() / 1024));
+	GlobalRenderer->Print(" KB");
 
-	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
-	kernelPrint.Print("Used Physical RAM: ");
-	kernelPrint.Print(to_string(GlobalAllocator.GetUsedRAM() / 1024));
-	kernelPrint.Print(" KB");
+	CURSOR_SINGLE;
+	GlobalRenderer->Print("Used Physical RAM: ");
+	GlobalRenderer->Print(to_string(GlobalAllocator.GetUsedRAM() / 1024));
+	GlobalRenderer->Print(" KB");
 
-	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
-	kernelPrint.Print("Reserved Physical RAM: ");
-	kernelPrint.Print(to_string(GlobalAllocator.GetReservedRAM() / 1024));
-	kernelPrint.Print(" KB");
-	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 32};
+	CURSOR_SINGLE;
+	GlobalRenderer->Print("Reserved Physical RAM: ");
+	GlobalRenderer->Print(to_string(GlobalAllocator.GetReservedRAM() / 1024));
+	GlobalRenderer->Print(" KB");
+	CURSOR_DOUBLE;
 
 	// System status messages... no real use but looks cool. Probably a memory drain.
-	kernelPrint.Print("MEMSET Function Passed");
-	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
-	kernelPrint.Print("Memory Sized");
-	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
-	kernelPrint.Print("PTM Variable Set");
-	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
-	kernelPrint.Print("Virtual Memory Initialized");
+	GlobalRenderer->Print("MEMSET Function Passed");
+	CURSOR_SINGLE;
+	GlobalRenderer->Print("Memory Sized");
+	CURSOR_SINGLE;
+	GlobalRenderer->Print("PTM Variable Set");
+	CURSOR_SINGLE;
+	GlobalRenderer->Print("Virtual Memory Initialized");
 
     return;
 }
 
+IDTR idtr;
+void PrepareInterrupts(){
+    idtr.Limit = 0x0FFF;
+    idtr.Offset = (uint64_t)GlobalAllocator.RequestPage();
+
+	// Handle pagefaults with an interrupt.
+    IDTDescEntry* int_PageFault = (IDTDescEntry*)(idtr.Offset + 0xE * sizeof(IDTDescEntry));
+    int_PageFault->SetOffset((uint64_t)PageFault_Handler);
+    int_PageFault->type_attr = IDT_TA_InterruptGate;
+    int_PageFault->selector = 0x08;
+
+    asm ("lidt %0" : : "m" (idtr));
+}
+
 KernelInfo InitializeKernel(BootInfo* bootInfo)
 {
-    PrepareMemory(bootInfo);
+	// Define a GlobalRenderer function that persists across the system and does not exit
+	// after kernel is initialized. USAGE: "GlobalRenderer->xxxx"
+	r = Basic_Renderer(bootInfo->framebuffer, bootInfo->psf1_Font);
+    GlobalRenderer = &r;
+
+    // Load the Global Descriptor Table for the x64 instruction set.
+	GDTDescriptor gdtDescriptor;
+    gdtDescriptor.Size = sizeof(GDT) - 1;
+    gdtDescriptor.Offset = (uint64_t)&DefaultGDT;
+    LoadGDT(&gdtDescriptor);
+	
+	PrepareMemory(bootInfo);
 
     // Set all pixels to black as soon as kernel has initialized. Removes UEFI messages.
-    // Has added effect of removing odd color bars within some VMs during boot.
-	memset(bootInfo->framebuffer->BaseAddress, 0, bootInfo->framebuffer->BufferSize);
+    // Has added effect of removing odd color bars within some VMs during boot. Uses memset()
+	// function to accomplish this (defined in Basic_Renderer.h)
+	CLEAR_SCREEN;
+
+	PrepareInterrupts();
 
 	// Display kernel logo information after kernel has initialized and virtual memory
 	// has been setup.

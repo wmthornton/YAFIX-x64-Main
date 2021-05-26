@@ -6,16 +6,21 @@ extern "C" void _start(BootInfo* bootInfo){
 	KernelInfo kernelInfo = InitializeKernel(bootInfo);
 	PageTableManager* pageTableManager = kernelInfo.pageTableManager;
 
-	// We are using consoleOutput to distinguish text generated outside of kernel initialization
-	// routines. Kernel initialization routines use kernelPrint.
-	Basic_Renderer consoleOutput = Basic_Renderer(bootInfo->framebuffer, bootInfo->psf1_Font);
+	// We are using GlobalRenderer to output all text from the kernel.
 
-	// Console output must be directed to begin on the 15th line of the screen to make it
-	// appear in-line with the kernel initialization output. Our character height is 16, thus
-	// we use 16 * 14 to get a value of 224. All output should thus begin at position 224.
-	consoleOutput.CursorPosition = {0, consoleOutput.CursorPosition.Y = 224};
+	// Console output must be directed to begin after the kernelLogo function output.
+	// We use GlobalRenderer->CursorPosition.Y + 32 to provide a space between the
+	// previous output and new output.
+	CURSOR_DOUBLE;
 
-	consoleOutput.Print("Kernel Initialized Successfully. Awaiting Instructions.");
+	GlobalRenderer->Print("Kernel Initialized Successfully. Awaiting Instructions.");
+	CURSOR_SINGLE;
+
+	// Page fault test
+	//CLEAR_SCREEN;
+	//CURSOR_DEFAULT;
+	//int* test = (int*)0x80000000000;
+    //*test = 2;
 
 	// We can't return from this function or kernel panic ensues.
     while(true);
