@@ -41,6 +41,54 @@ void PrepareMemory(BootInfo* bootInfo)
     kernelInfo.pageTableManager = &pageTableManager;
 }
 
+void KernelLogo(BootInfo* bootInfo)
+{
+
+	// We are using kernelOutput to distinguish text generated inside of kernel initialization
+	// routines. Non-kernel initialization routines use consolePrint.
+    Basic_Renderer kernelPrint = Basic_Renderer(bootInfo->framebuffer, bootInfo->psf1_Font);
+
+	// Kernel logo information can be changed to reflect updated version information.
+	// In future, these should be stored as variables passed to the compiler and auto-populated
+	// but for now, this works.
+	kernelPrint.Print("YAFIX Kernel Release 0.0.1a Version Generic_05182021-01_i386_amd64");
+	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
+	kernelPrint.Print("Copyright 2020 - 2021 Dexter's Laboratory. All rights reserved.");
+	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
+	kernelPrint.Print("Developed by Wayne Michael Thornton (WMT).");
+	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
+	kernelPrint.Print("Use is subject to license terms.");
+	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 32};
+
+	// Display system memory information. Very DOS-like but I think it looks cool. Does not
+	// include virtual memory information.
+	kernelPrint.Print("Free Physical RAM: ");
+	kernelPrint.Print(to_string(GlobalAllocator.GetFreeRAM() / 1024));
+	kernelPrint.Print(" KB");
+
+	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
+	kernelPrint.Print("Used Physical RAM: ");
+	kernelPrint.Print(to_string(GlobalAllocator.GetUsedRAM() / 1024));
+	kernelPrint.Print(" KB");
+
+	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
+	kernelPrint.Print("Reserved Physical RAM: ");
+	kernelPrint.Print(to_string(GlobalAllocator.GetReservedRAM() / 1024));
+	kernelPrint.Print(" KB");
+	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 32};
+
+	// System status messages... no real use but looks cool. Probably a memory drain.
+	kernelPrint.Print("MEMSET Function Passed");
+	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
+	kernelPrint.Print("Memory Sized");
+	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
+	kernelPrint.Print("PTM Variable Set");
+	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
+	kernelPrint.Print("Virtual Memory Initialized");
+
+    return;
+}
+
 KernelInfo InitializeKernel(BootInfo* bootInfo)
 {
     PrepareMemory(bootInfo);
@@ -48,6 +96,10 @@ KernelInfo InitializeKernel(BootInfo* bootInfo)
     // Set all pixels to black as soon as kernel has initialized. Removes UEFI messages.
     // Has added effect of removing odd color bars within some VMs during boot.
 	memset(bootInfo->framebuffer->BaseAddress, 0, bootInfo->framebuffer->BufferSize);
+
+	// Display kernel logo information after kernel has initialized and virtual memory
+	// has been setup.
+	KernelLogo(bootInfo);
 
     return kernelInfo;
 }
