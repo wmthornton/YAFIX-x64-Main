@@ -57,7 +57,7 @@ void KernelLogo(BootInfo* bootInfo)
 	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
 	kernelPrint.Print("Developed by Wayne Michael Thornton (WMT).");
 	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 16};
-	kernelPrint.Print("Use is subject to license terms.");
+	kernelPrint.Print("Use is subject to Unlicense terms.");
 	kernelPrint.CursorPosition = {0, kernelPrint.CursorPosition.Y + 32};
 
 	// Display system memory information. Very DOS-like but I think it looks cool. Does not
