@@ -14,13 +14,11 @@ extern "C" void _start(BootInfo* bootInfo){
 	CURSOR_DOUBLE;
 
 	GlobalRenderer->Print("Kernel Initialized Successfully. Awaiting Instructions.");
-	CURSOR_SINGLE;
+	CURSOR_DOUBLE;
+	GlobalRenderer->Print("YAFIX #: ");
 
-	// Page fault test
-	//CLEAR_SCREEN;
-	//CURSOR_DEFAULT;
-	//int* test = (int*)0x80000000000;
-    //*test = 2;
+
+	
 
 	// We can't return from this function or kernel panic ensues.
     while(true);
