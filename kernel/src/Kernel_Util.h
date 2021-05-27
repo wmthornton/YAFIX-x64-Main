@@ -10,6 +10,7 @@
 #include "paging/PageMapIndexer.h"
 #include "paging/Paging.h"
 #include "paging/PageTableManager.h"
+#include "userinput/Mouse.h"
 
 // Kernel information strings. Change as necessary for your system.
 #define VERSION "YAFIX Kernel Release 0.0.1a Version Generic_05182021-01_i386_amd64 (64-bit)"
