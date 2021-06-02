@@ -31,9 +31,9 @@
 
 // Kernel information strings. Change as necessary for your system.
 #define VERSION "YAFIX Kernel Release 0.0.1a Version Generic_05182021-01_i386_amd64 (64-bit)"
-#define COPYRIGHT_STRING "Copyright 2020 - 2021 *NIX Foundation, Inc. All rights reserved."
-#define DEVELOPER_INFO "Developed by Wayne Michael Thornton (WMT)."
-#define LICENSE_INFO "Use is subject to Unlicense terms."
+#define COPYRIGHT_STRING "Copyright 2020 - 2021 Wayne Michael Thornton. All rights reserved."
+#define DEVELOPER_INFO "Developed by Wayne Michael Thornton (wmthornton)."
+#define LICENSE_INFO "Use is subject to license terms."
 
 // Memory management typedef
 struct BootInfo {
