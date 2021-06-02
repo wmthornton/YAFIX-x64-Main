@@ -12,8 +12,7 @@ void Panic(const char* panicMessage){
 
     GlobalRenderer->Print("Kernel Panic");
 
-    CURSOR_SINGLE;
-    CURSOR_SINGLE;
+    CURSOR_DOUBLE;
 
     GlobalRenderer->Print(panicMessage);
 }
