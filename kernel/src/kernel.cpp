@@ -39,7 +39,6 @@ extern "C" void _start(BootInfo* bootInfo){
         ProcessMousePacket();
     }
 	
-
 	// We can't return from this function or kernel panic ensues.
     while(true);
 }

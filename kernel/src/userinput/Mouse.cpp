@@ -178,19 +178,19 @@ void ProcessMousePacket(){
         if (MousePacket[0] & PS2Leftbutton){
             uint32_t color = GlobalRenderer->Color;
             GlobalRenderer->Color = 0xffffffff;
-            GlobalRenderer->PutChar('L', MousePosition.X, MousePosition.Y);
+            GlobalRenderer->PutChar(' ', MousePosition.X, MousePosition.Y);
             GlobalRenderer->Color = color;
         }
         if (MousePacket[0] & PS2Middlebutton){
             uint32_t color = GlobalRenderer->Color;
             GlobalRenderer->Color = 0xffffffff;
-            GlobalRenderer->PutChar('M', MousePosition.X, MousePosition.Y);
+            GlobalRenderer->PutChar(' ', MousePosition.X, MousePosition.Y);
             GlobalRenderer->Color = color;
         }
         if (MousePacket[0] & PS2Rightbutton){
             uint32_t color = GlobalRenderer->Color;
             GlobalRenderer->Color = 0x0000ff00;
-            GlobalRenderer->PutChar('R', MousePosition.X, MousePosition.Y);
+            GlobalRenderer->PutChar(' ', MousePosition.X, MousePosition.Y);
             GlobalRenderer->Color = color;
         }
 
