@@ -28,6 +28,8 @@
 #include "paging/Paging.h"
 #include "paging/PageTableManager.h"
 #include "userinput/Mouse.h"
+#include "ACPI.h"
+#include "PCI.h"
 
 // Kernel information strings. Change as necessary for your system.
 #define VERSION "YAFIX Kernel Release 0.0.1a Version Generic_05182021-01_i386_amd64 (64-bit)"
@@ -42,6 +44,7 @@ struct BootInfo {
 	EFI_MEMORY_DESCRIPTOR* mMap;
 	uint64_t mMapSize;
 	uint64_t mMapDescSize;
+	ACPI::RSDP2* rsdp;
 };
 
 // Variables used to determine start and end of kernel memory space

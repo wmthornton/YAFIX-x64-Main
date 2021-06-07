@@ -21,6 +21,8 @@
 #include "PageFrameAllocator.h"
 #include "../System_Memory.h"
 
+PageTableManager g_PageTableManager = NULL;
+
 PageTableManager::PageTableManager(PageTable* PML4Address){
     this->PML4 = PML4Address;
 }
