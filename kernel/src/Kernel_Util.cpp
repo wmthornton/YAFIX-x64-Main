@@ -67,6 +67,19 @@ void PrepareMemory(BootInfo* bootInfo)
     kernelInfo.pageTableManager = &g_PageTableManager;
 }
 
+void PrepareACPI(BootInfo* bootInfo){
+    ACPI::SDTHeader* xsdt = (ACPI::SDTHeader*)(bootInfo->rsdp->XSDTAddress);
+    
+    ACPI::MCFGHeader* mcfg = (ACPI::MCFGHeader*)ACPI::FindTable(xsdt, (char*)"MCFG");
+
+    // for (int t = 0; t < 4; t++){
+    //     GlobalRenderer->PutChar(mcfg->Header.Signature[t]);
+    // }
+
+    PCI::EnumeratePCI(mcfg);
+}
+
+
 void KernelLogo(BootInfo* bootInfo)
 {
 
@@ -110,6 +123,11 @@ void KernelLogo(BootInfo* bootInfo)
 	GlobalRenderer->Print("PTM Variable Set");
 	CURSOR_SINGLE;
 	GlobalRenderer->Print("Virtual Memory Initialized");
+	CURSOR_SINGLE;
+	GlobalRenderer->Print("PCI Devices Probed");
+	CURSOR_DOUBLE;
+
+	PrepareACPI(bootInfo);
 
     return;
 }
@@ -140,18 +158,6 @@ void PrepareInterrupts(){
 
 }
 
-void PrepareACPI(BootInfo* bootInfo){
-    ACPI::SDTHeader* xsdt = (ACPI::SDTHeader*)(bootInfo->rsdp->XSDTAddress);
-    
-    ACPI::MCFGHeader* mcfg = (ACPI::MCFGHeader*)ACPI::FindTable(xsdt, (char*)"MCFG");
-
-    // for (int t = 0; t < 4; t++){
-    //     GlobalRenderer->PutChar(mcfg->Header.Signature[t]);
-    // }
-
-    PCI::EnumeratePCI(mcfg);
-}
-
 KernelInfo InitializeKernel(BootInfo* bootInfo)
 {
 	// Define a GlobalRenderer function that persists across the system and does not exit
@@ -176,8 +182,6 @@ KernelInfo InitializeKernel(BootInfo* bootInfo)
 
 	InitPS2Mouse();
 
-	PrepareACPI(bootInfo);
-
     outb(PIC1_DATA, 0b11111001);
     outb(PIC2_DATA, 0b11101111);
 
@@ -185,7 +189,10 @@ KernelInfo InitializeKernel(BootInfo* bootInfo)
     asm ("sti");
 
 	// Display kernel logo information after kernel has initialized and virtual memory
-	// has been setup.
+	// has been setup. Note that we are probing the PCI devices during the KernelLogo
+	// function to ensure that enumeration of devices remains consistent with existing
+	// kernel output. Technically we should probably find a way to move it to this function
+	// but it works for now.
 	KernelLogo(bootInfo);
 
     return kernelInfo;
