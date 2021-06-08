@@ -35,6 +35,11 @@ extern "C" void _start(BootInfo* bootInfo){
 	CURSOR_DOUBLE;
 	GlobalRenderer->Print("YAFIX #: ");
 	
-	// We can't return from this function or kernel panic ensues.
-    while(true);
+	// We can't return from this function or kernel panic ensues. Should be obvious, but
+	// given the different levels of developer skillsets, we include the comment for clarity.
+    while(true){
+		// Send a CPU instruction to halt the processor when the kernel is not actively
+		// working. Increases power efficiency of the processor.
+		asm ("hlt");
+	}
 }
