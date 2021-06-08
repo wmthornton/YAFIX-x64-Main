@@ -34,9 +34,6 @@ extern "C" void _start(BootInfo* bootInfo){
 	CURSOR_DOUBLE;
 	GlobalRenderer->Print("YAFIX #: ");
 
-	CURSOR_DOUBLE;
-	GlobalRenderer->Print(to_hstring((uint64_t)bootInfo->rsdp));
-
 	// Processes the mouse input while kernel is running.
 	while(true){
         ProcessMousePacket();

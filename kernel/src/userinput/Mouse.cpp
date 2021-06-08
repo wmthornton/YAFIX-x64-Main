@@ -176,22 +176,13 @@ void ProcessMousePacket(){
 
         // Handle mouse button input on a three-button mouse.
         if (MousePacket[0] & PS2Leftbutton){
-            uint32_t color = GlobalRenderer->Color;
-            GlobalRenderer->Color = 0xffffffff;
-            GlobalRenderer->PutChar(' ', MousePosition.X, MousePosition.Y);
-            GlobalRenderer->Color = color;
+
         }
         if (MousePacket[0] & PS2Middlebutton){
-            uint32_t color = GlobalRenderer->Color;
-            GlobalRenderer->Color = 0xffffffff;
-            GlobalRenderer->PutChar(' ', MousePosition.X, MousePosition.Y);
-            GlobalRenderer->Color = color;
+
         }
         if (MousePacket[0] & PS2Rightbutton){
-            uint32_t color = GlobalRenderer->Color;
-            GlobalRenderer->Color = 0x0000ff00;
-            GlobalRenderer->PutChar(' ', MousePosition.X, MousePosition.Y);
-            GlobalRenderer->Color = color;
+
         }
 
         MousePacketReady = false;

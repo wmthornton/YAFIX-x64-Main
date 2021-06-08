@@ -1,3 +1,20 @@
+/**
+ * Copyright (c) 2021 Wayne Michael Thornton <wmthornton>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
 #include "PCI.h"
 
 namespace PCI{
@@ -13,9 +30,15 @@ namespace PCI{
         if (pciDeviceHeader->DeviceID == 0) return;
         if (pciDeviceHeader->DeviceID == 0xFFFF) return;
 
-        GlobalRenderer->Print(to_hstring(pciDeviceHeader->VendorID));
-        GlobalRenderer->Print(" ");
-        GlobalRenderer->Print(to_hstring(pciDeviceHeader->DeviceID));
+        GlobalRenderer->Print(GetVendorName(pciDeviceHeader->VendorID));
+        GlobalRenderer->Print(" / ");
+        GlobalRenderer->Print(GetDeviceName(pciDeviceHeader->VendorID, pciDeviceHeader->DeviceID));
+        GlobalRenderer->Print(" / ");
+        GlobalRenderer->Print(DeviceClasses[pciDeviceHeader->Class]);
+        GlobalRenderer->Print(" / ");
+        GlobalRenderer->Print(GetSubclassName(pciDeviceHeader->Class, pciDeviceHeader->Subclass));
+        GlobalRenderer->Print(" / ");
+        GlobalRenderer->Print(GetProgIFName(pciDeviceHeader->Class, pciDeviceHeader->Subclass, pciDeviceHeader->ProgIF));
         CURSOR_SINGLE;
 
     }
