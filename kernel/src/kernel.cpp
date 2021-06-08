@@ -16,6 +16,7 @@
  */
 
 #include "Kernel_Util.h"
+#include "memory/Heap.h"
 
 // We use extern "C" to tell the file that it is being called from an external C program file
 extern "C" void _start(BootInfo* bootInfo){

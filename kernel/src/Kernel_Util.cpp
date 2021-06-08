@@ -21,6 +21,7 @@
 #include "interrupts/Interrupts.h"
 #include "IO.h"
 #include "PCI.h"
+#include "memory/Heap.h"
 
 KernelInfo kernelInfo;
 PageTableManager pageTableManager = NULL; 
@@ -173,6 +174,8 @@ KernelInfo InitializeKernel(BootInfo* bootInfo)
     // Has added effect of removing odd color bars within some VMs during boot. Uses memset()
 	// function to accomplish this (defined in Basic_Renderer.h)
 	CLEAR_SCREEN_MEMSET;
+
+	InitializeHeap((void*)0x0000100000000000, 0x10);
 
 	PrepareInterrupts();
 
