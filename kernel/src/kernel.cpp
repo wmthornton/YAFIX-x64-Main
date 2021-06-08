@@ -33,11 +33,6 @@ extern "C" void _start(BootInfo* bootInfo){
 	GlobalRenderer->Print("Kernel Initialized Successfully. Awaiting Instructions.");
 	CURSOR_DOUBLE;
 	GlobalRenderer->Print("YAFIX #: ");
-
-	// Processes the mouse input while kernel is running.
-	while(true){
-        ProcessMousePacket();
-    }
 	
 	// We can't return from this function or kernel panic ensues.
     while(true);

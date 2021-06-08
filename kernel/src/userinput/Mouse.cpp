@@ -95,20 +95,27 @@ Point MousePositionOld;
 
 void HandlePS2Mouse(uint8_t data){
 
+    // Bugfix to allow cursor input to remain unaffected by kernel latency. Moved from the
+    // kernel loop.
+    // Processes the mouse input while kernel is running.
+    ProcessMousePacket();
+    static bool skip = true;
+    if (skip) { skip = false; return; }
+
     switch(MouseCycle){
         case 0:
-            if (MousePacketReady) break;
+            
             if (data & 0b00001000 == 0) break;
             MousePacket[0] = data;
             MouseCycle++;
             break;
         case 1:
-            if (MousePacketReady) break;
+            
             MousePacket[1] = data;
             MouseCycle++;
             break;
         case 2:
-            if (MousePacketReady) break;
+            
             MousePacket[2] = data;
             MousePacketReady = true;
             MouseCycle = 0;
