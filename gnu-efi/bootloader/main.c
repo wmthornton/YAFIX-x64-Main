@@ -164,7 +164,7 @@ UINTN strcmp(CHAR8* a, CHAR8* b, UINTN length){
 EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	
 	InitializeLib(ImageHandle, SystemTable);
-	Print(L"YAFIX Bootloader Release 0.0.1a Version Generic_05182021-01_i386_amd64 \n\r");
+	Print(L"YAFIX Bootloader Release 0.0.2a Version Generic_05182021-01_i386_amd64 \n\r");
 	Print(L"Copyright 2020 - 2021 Dexter's Laboratory. All rights reserved.\n\r");
 	Print(L"Developed by Wayne Michael Thornton (WMT).\n\r");
 	Print(L"Use is subject to license terms.\n\r");
@@ -241,7 +241,7 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	Print(L"Waiting for GOP...\n\r");
 
 	// Load the PSF font into memory from root of filesystem. PSF must be type 1 font.
-	PSF1_FONT* newFont = loadPSF1Font(NULL, L"zap-light16.psf", ImageHandle, SystemTable);
+	PSF1_FONT* newFont = loadPSF1Font(NULL, L"zap-ext-light16.psf", ImageHandle, SystemTable);
 	if (newFont == NULL){
 		Print(L"System PSF invalid..\n\r");
 	}
