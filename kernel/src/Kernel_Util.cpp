@@ -22,7 +22,6 @@
 #include "IO.h"
 #include "PCI.h"
 #include "memory/Heap.h"
-#include "dsyfx/DSYFX.h"
 
 KernelInfo kernelInfo;
 PageTableManager pageTableManager = NULL; 
