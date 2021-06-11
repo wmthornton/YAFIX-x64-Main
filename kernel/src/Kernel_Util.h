@@ -37,6 +37,9 @@
 #define DEVELOPER_INFO "Developed by Wayne Michael Thornton (wmthornton)."
 #define LICENSE_INFO "Use is subject to license terms."
 
+// Used by DSYFX
+#define RANDOM_KEY int rand(void)
+
 // Memory management typedef
 struct BootInfo {
 	Framebuffer* framebuffer;
@@ -54,5 +57,6 @@ extern uint64_t _KernelEnd;
 struct KernelInfo {
     PageTableManager* pageTableManager;
 };
+
 
 KernelInfo InitializeKernel(BootInfo* BootInfo);

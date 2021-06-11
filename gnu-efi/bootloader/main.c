@@ -173,7 +173,7 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	EFI_FILE* Kernel = loadFile(NULL, L"kernel.elf", ImageHandle, SystemTable);
 	if ( Kernel == NULL){
 		Print(L"Error locating kernel within filesystem.\n\r");
-		Print(L"FATAL ERROR: 0x12171987\n\r");
+		Print(L"FATAL ERROR: 0x12171987\n\r"); // Rachel's birthday
 	}
 	else {
 		Print(L"Kernel located.\n\r");
