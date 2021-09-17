@@ -22,6 +22,7 @@
 #include "IO.h"
 #include "PCI.h"
 #include "memory/Heap.h"
+#include "dsyfx/DSYFX.h"
 
 KernelInfo kernelInfo;
 PageTableManager pageTableManager = NULL; 
@@ -119,8 +120,10 @@ void KernelLogo(BootInfo* bootInfo)
 	CURSOR_SINGLE;
 	GlobalRenderer->Print("PTM Variable Set");
 	CURSOR_SINGLE;
-	// DSYFX will need to be implemented to compare file or memory value with expected value
-	GlobalRenderer->Print("DSYFX Has Arrived");
+
+	// DSYFX Implementation
+	_DSYFX(VERIFIER);
+
 	CURSOR_SINGLE;
 	GlobalRenderer->Print("Virtual Memory Initialized");
 	CURSOR_SINGLE;

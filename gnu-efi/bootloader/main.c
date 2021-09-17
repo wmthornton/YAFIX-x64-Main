@@ -18,6 +18,7 @@
 #include <efi.h> // These files are contained in other build folders and compile correctly.
 #include <efilib.h>
 #include <elf.h>
+#include "bootloader.h"
 
 // Magic numbers to determine valid PSF font format
 #define PSF1_MAGIC0 0x36
@@ -158,6 +159,7 @@ UINTN strcmp(CHAR8* a, CHAR8* b, UINTN length){
 	return 1;
 }
 
+
 // Main EFI function. Searches for kernel file named "kernel.elf" and loads into memory.
 // Several checks are present to determine if kernel file is a valid kernel image and
 // of the correct architecture for the machine running code. 
@@ -285,6 +287,11 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 		}
 		configTable++;
 	}
+
+	// Return DSYFX Magic Value to kernel
+	Print(L"Returning Magic Value to kernel...\n\r");
+	_BOOTLOADER();
+	Print(L"Returned Magic Value.\n\r");
 
 	// Begin the process of booting the kernel
 	void (*KernelStart)(BootInfo*) = ((__attribute__((sysv_abi)) void (*)(BootInfo*) )header.e_entry);
