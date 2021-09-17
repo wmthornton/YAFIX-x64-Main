@@ -3,8 +3,6 @@
 #include "../Basic_Renderer.h"
 #include "../../../gnu-efi/bootloader/bootloader.h"
 
-int (VERIFIER)(_BOOTLOADER());
-
 // This function will be used to set a challenge value in memory for comparison against the value stored in the bootloader. Can be used
 // throughout the operating system whenver a challenge is required.
 int _DSYFX_CHALLENGE_BOOTLOADER(int _BOOTLOADER_CHALLENGE_VALUE) {
@@ -37,12 +35,14 @@ int _DSYFX(int _DSYFX_CHALLENGE_INPUT) {
     if (&_DSYFX_CHALLENGE_INPUT_VALUE != &_DSYFX_BOOTLOADER_VALUE) {
 
         if (_DSYFX_BOOTLOADER_VALUE == NULL) {
+            _DSYFX_VALID_BOOTLOADER = false;
             GlobalRenderer->Print("Failed to locate Magic Value in memory\n");
-            return 0;
+            return _DSYFX_VALID_BOOTLOADER;
         } else {
             if (_DSYFX_CHALLENGE_INPUT_VALUE == NULL) {
+                _DSYFX_VALID_BOOTLOADER = false;
                 GlobalRenderer->Print("Failed to locate Challenge Value in memory\n");
-                return 0;
+                return _DSYFX_VALID_BOOTLOADER;
             } else {
                 if (_DSYFX_BOOTLOADER_VALUE == _DSYFX_CHALLENGE_INPUT_VALUE) {
                     _DSYFX_VALID_BOOTLOADER = true;
@@ -56,7 +56,6 @@ int _DSYFX(int _DSYFX_CHALLENGE_INPUT) {
         }
     }
 }
-
 }
 
 

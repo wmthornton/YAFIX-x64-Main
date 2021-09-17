@@ -122,6 +122,7 @@ void KernelLogo(BootInfo* bootInfo)
 	CURSOR_SINGLE;
 
 	// DSYFX Implementation
+	int (VERIFIER)(_BOOTLOADER());
 	_DSYFX(VERIFIER);
 
 	CURSOR_SINGLE;
