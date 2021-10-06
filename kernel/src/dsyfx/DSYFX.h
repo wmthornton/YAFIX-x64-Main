@@ -36,21 +36,21 @@ int _DSYFX(int _DSYFX_CHALLENGE_INPUT) {
 
         if (_DSYFX_BOOTLOADER_VALUE == NULL) {
             _DSYFX_VALID_BOOTLOADER = false;
-            GlobalRenderer->Print("Failed to locate Magic Value in memory\n");
+            GlobalRenderer->Print("Failed To Locate Magic Value In Memory");
             return _DSYFX_VALID_BOOTLOADER;
         } else {
             if (_DSYFX_CHALLENGE_INPUT_VALUE == NULL) {
                 _DSYFX_VALID_BOOTLOADER = false;
-                GlobalRenderer->Print("Failed to locate Challenge Value in memory\n");
+                GlobalRenderer->Print("Failed To Locate Challenge Value In Memory");
                 return _DSYFX_VALID_BOOTLOADER;
             } else {
                 if (_DSYFX_BOOTLOADER_VALUE == _DSYFX_CHALLENGE_INPUT_VALUE) {
                     _DSYFX_VALID_BOOTLOADER = true;
-                    GlobalRenderer->Print("DSYFX Has Arrived\n");
+                    GlobalRenderer->Print("DSYFX Has Arrived");
                     return _DSYFX_VALID_BOOTLOADER;
             } else {
                 _DSYFX_VALID_BOOTLOADER = false;
-                GlobalRenderer->Print("DSYFX Has Not Arrived\n");
+                GlobalRenderer->Print("DSYFX Has Not Arrived");
                 return _DSYFX_VALID_BOOTLOADER;
             }
         }
