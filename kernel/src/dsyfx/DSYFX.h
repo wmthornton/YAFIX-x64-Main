@@ -4,7 +4,7 @@
 #include "../../../gnu-efi/bootloader/bootloader.h"
 
 // This function will be used to set a challenge value in memory for comparison against the value stored in the bootloader. Can be used
-// throughout the operating system whenver a challenge is required.
+// throughout the operating system whenever a challenge is required.
 int _DSYFX_CHALLENGE_BOOTLOADER(int _BOOTLOADER_CHALLENGE_VALUE) {
 
     int *_DSYFX_CHALLENGE_BOOTLOADER;
