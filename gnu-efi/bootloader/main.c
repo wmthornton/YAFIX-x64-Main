@@ -166,7 +166,7 @@ UINTN strcmp(CHAR8* a, CHAR8* b, UINTN length){
 EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	
 	InitializeLib(ImageHandle, SystemTable);
-	Print(L"YAFIX Bootloader Release 0.0.2a Version Generic_05182021-01_i386_amd64 \n\r");
+	Print(L"YAFIX Bootloader Release 0.0.3a Version Generic_12292021-01_i386_amd64 \n\r");
 	Print(L"Copyright 2020 - 2021 Dexter's Laboratory. All rights reserved.\n\r");
 	Print(L"Developed by Wayne Michael Thornton (WMT).\n\r");
 	Print(L"Use is subject to license terms.\n\r");
