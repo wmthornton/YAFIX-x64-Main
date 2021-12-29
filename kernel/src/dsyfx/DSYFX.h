@@ -2,6 +2,7 @@
 
 #include "../Basic_Renderer.h"
 #include "../../../gnu-efi/bootloader/bootloader.h"
+#include "../Panic.h"
 
 // This function will be used to set a challenge value in memory for comparison against the value stored in the bootloader. Can be used
 // throughout the operating system whenever a challenge is required.
@@ -20,6 +21,9 @@ int _DSYFX_CHALLENGE_BOOTLOADER(int _BOOTLOADER_CHALLENGE_VALUE) {
 
 }
 
+// Declared globally so that it can be used elsewhere in the DSYFX routines without having to pass it as a parameter.
+bool _DSYFX_VALID_BOOTLOADER = false;
+
 int _DSYFX(int _DSYFX_CHALLENGE_INPUT) {
 
     int (BOOTLOADER)(_BOOTLOADER());
@@ -27,8 +31,6 @@ int _DSYFX(int _DSYFX_CHALLENGE_INPUT) {
 
     int _DSYFX_BOOTLOADER_VALUE = BOOTLOADER;
     int _DSYFX_CHALLENGE_INPUT_VALUE = _DSYFX_CHALLENGE_INPUT;
-
-    bool _DSYFX_VALID_BOOTLOADER = false;
 
     CHALLENGE = _DSYFX_CHALLENGE_BOOTLOADER;
 
@@ -56,6 +58,13 @@ int _DSYFX(int _DSYFX_CHALLENGE_INPUT) {
         }
     }
 }
+}
+
+void _DSYFX_Fault_Detected() {
+    if (_DSYFX_VALID_BOOTLOADER == false) {
+        DSYFX_Fault("DSYFX Verification Failed");
+        while(true);
+    }
 }
 
 

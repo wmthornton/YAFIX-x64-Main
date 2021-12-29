@@ -125,6 +125,10 @@ void KernelLogo(BootInfo* bootInfo)
 	int (VERIFIER)(_BOOTLOADER());
 	_DSYFX(VERIFIER);
 
+	if (_DSYFX_VALID_BOOTLOADER == false) {
+		_DSYFX_Fault_Detected();
+	}
+
 	CURSOR_SINGLE;
 	GlobalRenderer->Print("Virtual Memory Initialized");
 	CURSOR_SINGLE;
