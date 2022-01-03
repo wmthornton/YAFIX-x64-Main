@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\kernel",
+    "\\kernel\\src",
+    "\\kernel\\src\\dsyfx",
+    "\\kernel\\src\\interrupts"
+  ],
+  "SelectedNode": "\\kernel\\src\\Kernel_Util.h",
+  "PreviewInSolutionExplorer": false
+}

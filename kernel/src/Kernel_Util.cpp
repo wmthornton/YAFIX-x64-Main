@@ -125,7 +125,7 @@ void KernelLogo(BootInfo* bootInfo)
 	int (VERIFIER)(_BOOTLOADER());
 	_DSYFX(VERIFIER);
 
-	_DSYFX_Fault_Detected(); // Only runs if the verifier fails, otherwise no code is executed.
+	_DSYFX_Fault_Detected(); // Only runs if the verifier fails, otherwise no code is executed. Essentially an interrupt handler.
 
 	CURSOR_SINGLE;
 	GlobalRenderer->Print("Virtual Memory Initialized");
