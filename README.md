@@ -71,6 +71,10 @@ In order to delete the old and outdated build files, you must enter the followin
 
 */ rm -r lib /*
 
+or you can type:
+
+*/ make clean /*
+
 This command deletes the "lib" folder and all of the outdated build files within. This will be very fast and you will not receive a warning or other indication of success.
 
 We are now ready to compile the kernel from source! To compile the kernel, enter the following commands:
@@ -106,7 +110,3 @@ This process is simple. Enter the following command at the prompt:
 */ make run /*
 
 A Qemu virtual machine will start and the YAFIX kernel will be loaded. If you have issues with the machine not starting, exit Qemu and try the compilation process again. 
-
-
-
-
