@@ -122,10 +122,11 @@ void KernelLogo(BootInfo* bootInfo)
 	CURSOR_SINGLE;
 
 	// DSYFX Implementation
-	int (VERIFIER)(_BOOTLOADER());
+	int (VERIFIER)(bootInfo->dsyfx);
 	_DSYFX(VERIFIER);
 
-	_DSYFX_Fault_Detected(); // Only runs if the verifier fails, otherwise no code is executed. Essentially an interrupt handler.
+	int (VALID_INVALID)(_DSYFX(VERIFIER));
+	_DSYFX_BOOT_CHECK(VALID_INVALID);
 
 	CURSOR_SINGLE;
 	GlobalRenderer->Print("Virtual Memory Initialized");
@@ -182,7 +183,7 @@ KernelInfo InitializeKernel(BootInfo* bootInfo)
     // Set all pixels to black as soon as kernel has initialized. Removes UEFI messages.
     // Has added effect of removing odd color bars within some VMs during boot. Uses memset()
 	// function to accomplish this (defined in Basic_Renderer.h)
-	CLEAR_SCREEN_MEMSET;
+	//CLEAR_SCREEN_MEMSET;
 
 	InitializeHeap((void*)0x0000100000000000, 0x10);
 

@@ -149,6 +149,7 @@ typedef struct {
 	UINTN mMapSize;
 	UINTN mMapDescSize;
 	void* rsdp;
+	UINTN dsyfx;
 } BootInfo;
 
 // String compare function for PCI device enumeration
@@ -167,15 +168,15 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	
 	InitializeLib(ImageHandle, SystemTable);
 	Print(L"YAFIX Bootloader Release 0.0.3a Version Generic_12292021-01_i386_amd64 \n\r");
-	Print(L"Copyright 2020 - 2021 Dexter's Laboratory. All rights reserved.\n\r");
-	Print(L"Developed by Wayne Michael Thornton (WMT).\n\r");
+	Print(L"Copyright 2020 - 2022 Wayne Michael Thornton. All rights reserved.\n\r");
+	Print(L"Developed by Wayne Michael Thornton (wmthornton).\n\r");
 	Print(L"Use is subject to license terms.\n\r");
 	Print(L" \n\r");
 
 	EFI_FILE* Kernel = loadFile(NULL, L"kernel.elf", ImageHandle, SystemTable);
 	if ( Kernel == NULL){
 		Print(L"Error locating kernel within filesystem.\n\r");
-		Print(L"FATAL ERROR: 0x12171987\n\r"); // Rachel's birthday
+		Print(L"FATAL ERROR: 0xB9BAD3\n\r"); // Rachel's birthday
 	}
 	else {
 		Print(L"Kernel located.\n\r");
@@ -290,7 +291,7 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 
 	// Return DSYFX Magic Value to kernel
 	Print(L"Returning Magic Value to kernel...\n\r");
-	_BOOTLOADER();
+	//_BOOTLOADER();
 	Print(L"Returned Magic Value.\n\r");
 
 	// Begin the process of booting the kernel
@@ -303,6 +304,7 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	bootInfo.mMapSize = MapSize;
 	bootInfo.mMapDescSize = DescriptorSize;
 	bootInfo.rsdp = rsdp;
+	bootInfo.dsyfx = _BOOTLOADER(); // Return DSYFX Magic Value to kernel using BootInfo struct. This passes(?) the magic value to the kernel for use by DSYFX functions.
 
 	SystemTable->BootServices->ExitBootServices(ImageHandle, MapKey);
 

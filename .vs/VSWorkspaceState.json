@@ -3,9 +3,8 @@
     "",
     "\\kernel",
     "\\kernel\\src",
-    "\\kernel\\src\\dsyfx",
-    "\\kernel\\src\\interrupts"
+    "\\kernel\\src\\dsyfx"
   ],
-  "SelectedNode": "\\kernel\\src\\Kernel_Util.h",
+  "SelectedNode": "\\kernel\\src\\dsyfx\\DSYFX.h",
   "PreviewInSolutionExplorer": false
 }

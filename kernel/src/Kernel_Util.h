@@ -33,7 +33,7 @@
 
 // Kernel information strings. Change as necessary for your system.
 #define VERSION "YAFIX Kernel Release 0.0.3a Version Generic_12292021-01_i386_amd64 (64-bit)"
-#define COPYRIGHT_STRING "Copyright 2020 - 2021 Wayne Michael Thornton. All rights reserved."
+#define COPYRIGHT_STRING "Copyright 2020 - 2022 Wayne Michael Thornton. All rights reserved."
 #define DEVELOPER_INFO "Developed by Wayne Michael Thornton (wmthornton)."
 #define LICENSE_INFO "Use is subject to license terms."
 
@@ -48,6 +48,7 @@ struct BootInfo {
 	uint64_t mMapSize;
 	uint64_t mMapDescSize;
 	ACPI::RSDP2* rsdp;
+	uint64_t dsyfx; // DSYFX
 };
 
 // Variables used to determine start and end of kernel memory space
