@@ -18,7 +18,7 @@
 #include <efi.h> // These files are contained in other build folders and compile correctly.
 #include <efilib.h>
 #include <elf.h>
-#include "bootloader.h"
+//#include "bootloader.h"
 
 // Magic numbers to determine valid PSF font format
 #define PSF1_MAGIC0 0x36
@@ -293,6 +293,16 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	Print(L"Returning Magic Value to kernel...\n\r");
 	//_BOOTLOADER();
 	Print(L"Returned Magic Value.\n\r");
+
+	// DSYFX Magic Number
+	int _BOOTLOADER() {
+    int _BOOTLOADER_RETURN_VALUE;
+
+    // Can be any arbitrary value set by the developer so long as that number is not easily guessed.
+    _BOOTLOADER_RETURN_VALUE = 0xB9BAD3;
+
+    return _BOOTLOADER_RETURN_VALUE;
+	}
 
 	// Begin the process of booting the kernel
 	void (*KernelStart)(BootInfo*) = ((__attribute__((sysv_abi)) void (*)(BootInfo*) )header.e_entry);
