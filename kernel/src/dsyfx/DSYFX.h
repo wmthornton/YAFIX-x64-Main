@@ -5,7 +5,7 @@
 #include "../Panic.h"
 
 void _DSYFX_FAULT_DETECTED() {
-    DSYFX_Fault("DSYFX Verification Failed. Bootloader Is Not Valid.");
+    DSYFX_Fault("DSYFX Verification Failed. Key Mismatch!");
     while(true);
 }
 
