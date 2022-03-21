@@ -296,12 +296,12 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 
 	// DSYFX Magic Number
 	int _BOOTLOADER() {
-    int _BOOTLOADER_RETURN_VALUE;
+    	int _BOOTLOADER_RETURN_VALUE;
 
-    // Can be any arbitrary value set by the developer so long as that number is not easily guessed.
-    _BOOTLOADER_RETURN_VALUE = 0xB9BAD3;
+    	// Can be any arbitrary value set by the developer so long as that number is not easily guessed.
+    	_BOOTLOADER_RETURN_VALUE = 0xB9BAD3;
 
-    return _BOOTLOADER_RETURN_VALUE;
+    	return _BOOTLOADER_RETURN_VALUE;
 	}
 
 	// Begin the process of booting the kernel

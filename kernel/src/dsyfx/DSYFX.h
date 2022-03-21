@@ -12,7 +12,6 @@ void _DSYFX_FAULT_DETECTED() {
 // Compare bootloader Magic Value with the one provided by the kernel and return either a 0 or 1 to be used by future functions.
 int _DSYFX(int _DSYFX_CHALLENGE_INPUT) {
 
-    //int (BOOTLOADER)(_BOOTLOADER());
     int (BOOTLOADER)(_BOOTLOADER());
     
     int _DSYFX_BOOTLOADER_VALUE = BOOTLOADER;
