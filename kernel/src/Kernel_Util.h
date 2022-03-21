@@ -36,6 +36,7 @@
 #define COPYRIGHT_STRING "Copyright 2020 - 2022 Wayne Michael Thornton. All rights reserved."
 #define DEVELOPER_INFO "Developed by Wayne Michael Thornton (wmthornton)."
 #define LICENSE_INFO "Use is subject to license terms."
+#define VERSION_UNFORMATTED "003"
 
 // Used by DSYFX
 #define RANDOM_KEY int rand(void)

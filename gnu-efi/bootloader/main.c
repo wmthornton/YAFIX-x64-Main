@@ -24,6 +24,13 @@
 #define PSF1_MAGIC0 0x36
 #define PSF1_MAGIC1 0x04
 
+// Bootloader information strings. Change as necessary for your system.
+#define VERSION "YAFIX Bootloader Release 0.0.3a Version Generic_12292021-01_i386_amd64 (64-Bit) \n\r"
+#define COPYRIGHT_STRING "Copyright 2020 - 2022 Wayne Michael Thornton. All rights reserved. \n\r"
+#define DEVELOPER_INFO "Developed by Wayne Michael Thornton (wmthornton). \n\r"
+#define LICENSE_INFO "Use is subject to license terms. \n\r"
+#define VERSION_UNFORMATTED "003"
+
 // Framebuffer typedefs 
 typedef unsigned long long size_t;
 typedef struct {
@@ -167,6 +174,10 @@ UINTN strcmp(CHAR8* a, CHAR8* b, UINTN length){
 EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	
 	InitializeLib(ImageHandle, SystemTable);
+	//Print(L(VERSION));
+	//Print(L(COPYRIGHT_STRING));
+	//Print(L(DEVELOPER_INFO));
+	//Print(L(LICENSE_INFO));
 	Print(L"YAFIX Bootloader Release 0.0.3a Version Generic_12292021-01_i386_amd64 \n\r");
 	Print(L"Copyright 2020 - 2022 Wayne Michael Thornton. All rights reserved.\n\r");
 	Print(L"Developed by Wayne Michael Thornton (wmthornton).\n\r");
