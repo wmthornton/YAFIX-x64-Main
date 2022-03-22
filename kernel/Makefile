@@ -90,7 +90,10 @@ buildiso:
 	mcopy -i $(BUILDDIR)/$(OSNAME).iso startup.nsh ::
 	mcopy -i $(BUILDDIR)/$(OSNAME).iso $(BUILDDIR)/kernel.elf ::
 	mcopy -i $(BUILDDIR)/$(OSNAME).iso $(BUILDDIR)/zap-light16.psf ::
-	mcopy -i $(BUILDDIR)/$(OSNAME).img $(BUILDDIR)/zap-ext-light16.psf ::
+	mcopy -i $(BUILDDIR)/$(OSNAME).iso $(BUILDDIR)/zap-ext-light16.psf ::
 
 run:
 	qemu-system-x86_64 -machine q35 -drive file=$(BUILDDIR)/$(OSNAME).img -m 256M -cpu qemu64 -drive if=pflash,format=raw,unit=0,file="$(OVMFDIR)/OVMF_CODE-pure-efi.fd",readonly=on -drive if=pflash,format=raw,unit=1,file="$(OVMFDIR)/OVMF_VARS-pure-efi.fd" -net none
+
+runiso:
+	qemu-system-x86_64 -machine q35 -drive file=$(BUILDDIR)/$(OSNAME).iso -m 256M -cpu qemu64 -drive if=pflash,format=raw,unit=0,file="$(OVMFDIR)/OVMF_CODE-pure-efi.fd",readonly=on -drive if=pflash,format=raw,unit=1,file="$(OVMFDIR)/OVMF_VARS-pure-efi.fd" -net none
