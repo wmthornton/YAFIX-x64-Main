@@ -62,6 +62,6 @@ if exist fs7:\efi\boot\main.efi then
  goto END
 endif
 
- echo "Unable to find bootloader".
+ echo "YAFIX bootloader is not present on SMC. Failed.".
  
 :END

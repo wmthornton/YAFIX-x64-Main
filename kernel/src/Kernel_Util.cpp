@@ -122,7 +122,7 @@ void KernelLogo(BootInfo* bootInfo)
 	CURSOR_SINGLE;
 
 	// DSYFX Implementation
-	int (VERIFIER)(bootInfo->dsyfx);
+	int (VERIFIER)(bootInfo->dsyfx); // Set integer value of verifier to the value passed by the booloader
 	_DSYFX(VERIFIER);
 
 	int (VALID_INVALID)(_DSYFX(VERIFIER));
