@@ -45,9 +45,9 @@ namespace PCI {
     const char* GetVendorName(uint16_t vendorID){
         switch (vendorID){
             case 0x8086:
-                return "Intel Corp";
+                return "Intel Corporation";
             case 0x1022:
-                return "AMD";
+                return "Advanced Micro Devices";
             case 0x10DE:
                 return "NVIDIA Corporation";
         }
