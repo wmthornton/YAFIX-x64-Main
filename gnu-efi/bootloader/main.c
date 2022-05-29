@@ -24,6 +24,7 @@
 #define PSF1_MAGIC0 0x36
 #define PSF1_MAGIC1 0x04
 
+
 // Bootloader information strings. Change as necessary for your system.
 #define VERSION "YAFIX Bootloader Release 0.0.3a Version Generic_12292021-01_i386_amd64 (64-Bit) \n\r"
 #define COPYRIGHT_STRING "Copyright 2020 - 2022 Wayne Michael Thornton. All rights reserved. \n\r"

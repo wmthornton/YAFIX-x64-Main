@@ -39,7 +39,7 @@
 #define VERSION_UNFORMATTED "003"
 
 // Used by DSYFX
-#define RANDOM_KEY int rand(void)
+#define RANDOM_KEY int srand(void)
 
 // Memory management typedef
 struct BootInfo {
