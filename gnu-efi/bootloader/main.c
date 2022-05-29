@@ -312,7 +312,7 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 
     	// Can be any arbitrary value set by the developer so long as that number is not easily guessed.
     	_BOOTLOADER_RETURN_VALUE = 0xB9BAD3;
-
+		
     	return _BOOTLOADER_RETURN_VALUE;
 	}
 
