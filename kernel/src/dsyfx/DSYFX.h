@@ -2,6 +2,7 @@
 
 #include "../Basic_Renderer.h"
 #include "../Panic.h"
+#include "../../../gnu-efi/bootloader/bootloader.h"
 
 void _DSYFX_FAULT_DETECTED() {
     DSYFX_Fault("DSYFX Verification Failed. Key Mismatch!");
