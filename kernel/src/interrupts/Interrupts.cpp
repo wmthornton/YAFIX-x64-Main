@@ -20,6 +20,7 @@
 #include "../IO.h"
 #include "../userinput/Keyboard.h"
 #include "../userinput/Mouse.h"
+#include "../scheduling/PIT.h"
 
 __attribute__((interrupt)) void PageFault_Handler(interrupt_frame* frame){
     Panic("Page Fault Detected");
@@ -49,6 +50,12 @@ __attribute__((interrupt)) void MouseInt_Handler(interrupt_frame* frame){
     HandlePS2Mouse(mouseData);
 
     PIC_EndSlave();
+}
+
+__attribute__((interrupt)) void PITInt_Handler(interrupt_frame* frame){
+
+    PIT::Tick();
+    PIC_EndMaster();
 }
 
 // End the interrupts for PIC chip
