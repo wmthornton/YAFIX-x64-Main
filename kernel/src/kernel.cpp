@@ -19,8 +19,8 @@
 #include "memory/Heap.h"
 
 
-// We use extern "C" to tell the file that it is being called from an external C program file. _start is used as the entry point for the program and defined in kernel.ld
-extern "C" void _start(BootInfo* bootInfo){
+// We use extern "C" to tell the file that it is being called from an external C program file. _YAFIX is used as the entry point for the program and defined in kernel.ld
+extern "C" void _YAFIX(BootInfo* bootInfo){
 
 	KernelInfo kernelInfo = InitializeKernel(bootInfo);
 	PageTableManager* pageTableManager = kernelInfo.pageTableManager;
