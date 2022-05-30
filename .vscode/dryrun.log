@@ -16,7 +16,8 @@ Syntax: MAKE [options ...] target[s]
     -N                Increases MAKE's compatibility with NMAKE
     -Wfilename        Writes MAKE to filename updating all non-string options
     -Usymbol          Undefine symbol
-    -ffilename        Uses filename as the MAKEFILE
+    -ffilename         
+Uses filename as the MAKEFILE
     -a                Performs auto-dependency checks for include files
     -c                Caches auto-dependency information
     -e                Ignores redefinition of environment variable macros

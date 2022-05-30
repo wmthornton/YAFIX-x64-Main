@@ -18,7 +18,6 @@
 #include <efi.h> // These files are contained in other build folders and compile correctly.
 #include <efilib.h>
 #include <elf.h>
-//#include "bootloader.h"
 
 // Magic numbers to determine valid PSF font format
 #define PSF1_MAGIC0 0x36
@@ -303,10 +302,8 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 
 	// Return DSYFX Magic Value to kernel
 	Print(L"Returning Magic Value to kernel...\n\r");
-	//_BOOTLOADER();
-	Print(L"Returned Magic Value.\n\r");
-
-	// DSYFX Magic Number
+	
+	// DSYFX Magic Number function. Placed here just for readability. Function is not called until BootInfo struct is passed to kernel later on.
 	int _BOOTLOADER() {
     	int _BOOTLOADER_RETURN_VALUE;
 
@@ -315,6 +312,8 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 		
     	return _BOOTLOADER_RETURN_VALUE;
 	}
+
+	Print(L"Returned Magic Value.\n\r");
 
 	// Begin the process of booting the kernel
 	void (*KernelStart)(BootInfo*) = ((__attribute__((sysv_abi)) void (*)(BootInfo*) )header.e_entry);
@@ -326,7 +325,7 @@ EFI_STATUS efi_main (EFI_HANDLE ImageHandle, EFI_SYSTEM_TABLE *SystemTable) {
 	bootInfo.mMapSize = MapSize;
 	bootInfo.mMapDescSize = DescriptorSize;
 	bootInfo.rsdp = rsdp;
-	bootInfo.dsyfx = _BOOTLOADER(); // Return DSYFX Magic Value to kernel using BootInfo struct. This passes(?) the magic value to the kernel for use by DSYFX functions.
+	bootInfo.dsyfx = _BOOTLOADER(); // Return DSYFX Magic Value to kernel using BootInfo struct. This passes the magic value to the kernel for use by DSYFX functions.
 
 	SystemTable->BootServices->ExitBootServices(ImageHandle, MapKey);
 

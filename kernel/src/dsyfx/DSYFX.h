@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../Basic_Renderer.h"
-#include "../../../gnu-efi/bootloader/bootloader.h" // Can't compile without our bootloader source code
 #include "../Panic.h"
 
 void _DSYFX_FAULT_DETECTED() {
