@@ -16,6 +16,8 @@
  */
 
 #include "PCI.h"
+#include "ahci/AHCI.h"
+#include "memory/Heap.h"
 
 namespace PCI{
 
@@ -40,6 +42,18 @@ namespace PCI{
         GlobalRenderer->Print(" / ");
         GlobalRenderer->Print(GetProgIFName(pciDeviceHeader->Class, pciDeviceHeader->Subclass, pciDeviceHeader->ProgIF));
         CURSOR_SINGLE;
+
+        // Print output related to ACHI driver initialization immediately after enumeration
+        switch (pciDeviceHeader->Class){
+            case 0x01: // Mass storage controller
+                switch (pciDeviceHeader->Subclass){
+                    case 0x06: // SATA
+                        switch (pciDeviceHeader->ProgIF){
+                            case 0x01: // AHCI 1.0 Device
+                                new AHCI::AHCIDriver(pciDeviceHeader);
+                        }
+                }
+        }
 
     }
 
