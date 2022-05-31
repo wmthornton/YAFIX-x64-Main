@@ -18,7 +18,7 @@
 #include "Memory_Bitmap.h"
 
 bool Bitmap::operator[](uint64_t index){
-    Get(index);
+    return Get(index);
 }
 
 bool Bitmap::Get(uint64_t index){
