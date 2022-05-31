@@ -1,4 +1,8 @@
 make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --question
+'\\wsl$\Ubuntu\home\wmthornton\YAFIX'
+CMD.EXE was started with the above path as the current directory.
+UNC paths are not supported.  Defaulting to Windows directory.
+
 MAKE Version 5.43  Copyright (c) 1987, 2019 Embarcadero Technologies, Inc.
 Fatal: Unable to open makefile
  

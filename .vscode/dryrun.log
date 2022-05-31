@@ -1,6 +1,12 @@
-make.exe --dry-run --keep-going --print-directory
+make.exe --dry-run --always-make --keep-going --print-directory
+'\\wsl$\Ubuntu\home\wmthornton\YAFIX'
+CMD.EXE was started with the above path as the current directory.
+UNC paths are not supported.  Defaulting to Windows directory.
+
 MAKE Version 5.43  Copyright (c) 1987, 2019 Embarcadero Technologies, Inc.
 Incorrect command line argument: --dry-run
+
+Incorrect command line argument: --always-make
 
 Incorrect command line argument: --keep-going
 
@@ -10,8 +16,8 @@ Syntax: MAKE [options ...] target[s]
     -B                Builds all targets regardless of dependency dates
     -Dsymbol[=string] Defines symbol [equal to string]
     -Idirectory       Names an include directory
-    -K                Keeps 
- (does not erase) temporary files created by MAKE
+    -K               
+  Keeps (does not erase) temporary files created by MAKE
     -N                Increases MAKE's compatibility with NMAKE
     -Wfilename        Writes MAKE to filename updating all non-string options
     -Usymbol          Undefine symbol
